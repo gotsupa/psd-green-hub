@@ -119,10 +119,10 @@ function LearningContent() {
               มาตรฐานองค์กรสีเขียว
             </p>
             <h3 className="mt-1 text-2xl font-bold text-[#111111]">
-              MEA GO Standard
+              PSD GO Standard
             </h3>
             <p className="mt-2 text-sm leading-6 text-[#4d5053]">
-              โครงมาตรฐานที่ช่วยให้การทำงานสีเขียวเป็นระบบเดียวกัน
+              มาตรฐานที่ช่วยให้การทำงานสีเขียวเป็นระบบเดียวกัน
             </p>
           </div>
           <div className="grid gap-2 sm:grid-cols-2">
@@ -153,11 +153,26 @@ function OrganizationOverview() {
         <div>
           <h1 className="mt-6 max-w-3xl text-5xl leading-[0.98] font-bold tracking-[-0.03em] text-balance sm:text-7xl">
             <span className="relative isolate inline-block px-1 text-[#111111]">
-              <span
+              <svg
                 aria-hidden="true"
-                className="absolute inset-x-0 bottom-[0.03em] z-0 h-[0.52em] bg-[#fe5000]"
-              />
-              <span className="relative z-10">MEA</span>
+                className="absolute -inset-x-[0.08em] -bottom-[0.05em] z-0 h-[0.64em] w-[calc(100%+0.16em)] overflow-visible text-[#fe5000]"
+                preserveAspectRatio="none"
+                viewBox="0 0 300 72"
+              >
+                <path
+                  d="M3 15C34 10 64 17 101 11C145 16 198 8 246 14C270 11 289 15 298 10L295 61C266 57 231 66 194 61C148 68 106 58 63 65C36 60 18 67 5 62Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M18 27C68 22 111 30 158 24C201 19 247 28 284 22M11 51C57 45 97 54 143 48C190 42 238 53 290 44"
+                  fill="none"
+                  opacity="0.32"
+                  stroke="#ffb07b"
+                  strokeLinecap="round"
+                  strokeWidth="2.5"
+                />
+              </svg>
+              <span className="relative z-10">PSD</span>
             </span>{' '}
             Green Organization
           </h1>
@@ -274,9 +289,11 @@ function StandardsAndTargetsSection() {
       <div className="mb-4 bg-[#111111] p-5 sm:p-8">
         <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
           <div>
-            <p className="rounded-base inline-flex items-center gap-2 bg-[#5df591] px-4 py-2 text-sm font-bold text-[#111111]">
-              <IconLeaf aria-hidden="true" className="size-4" />
-              เป้าหมายปี 2569
+            <p className="rounded-base inline-flex -rotate-1 items-center gap-2 border-2 border-[#5df591] bg-[#5df591] px-3 py-2 text-base font-bold text-[#111111] shadow-[4px_4px_0_#ffffff] sm:px-4 sm:py-2.5 sm:text-lg">
+              <span className="grid size-7 place-items-center rounded-full bg-[#111111] text-[#5df591] sm:size-8">
+                <IconLeaf aria-hidden="true" className="size-4 sm:size-5" />
+              </span>
+              <span>เป้าหมายปี 2569</span>
             </p>
             <h2 className="mt-4 max-w-3xl text-3xl leading-tight font-bold text-balance sm:text-5xl">
               ลดการใช้ทรัพยากร

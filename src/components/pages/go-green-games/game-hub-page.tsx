@@ -755,16 +755,17 @@ function EnergyHunterGame() {
           </div>
 
           <div className="grid gap-3 p-5 sm:grid-cols-2 sm:p-7">
-            <button
+            <Button
               aria-pressed={selectedDecision === 'stop'}
               className={cn(
-                'flex min-h-24 items-center gap-4 border border-[#111111] bg-[#fff8d7] p-4 text-left transition duration-200 hover:-translate-y-0.5 hover:bg-[#fff1a6] focus-visible:ring-2 focus-visible:ring-[#facc00] focus-visible:ring-offset-2 focus-visible:outline-none',
+                'flex min-h-24 items-center gap-4 rounded-none border border-[#111111] bg-[#fff8d7] p-4 text-left whitespace-normal transition duration-200 hover:-translate-y-0.5 hover:bg-[#fff1a6] focus-visible:ring-2 focus-visible:ring-[#facc00] focus-visible:ring-offset-2 focus-visible:outline-none [&_svg]:size-auto',
                 selectedDecision && 'cursor-default opacity-45',
                 selectedDecision === 'stop' && 'opacity-100'
               )}
               disabled={selectedDecision !== null}
               onClick={() => answer('stop')}
               type="button"
+              variant="ghost"
             >
               <span className="rounded-base grid size-10 shrink-0 place-items-center bg-[#facc00]">
                 <IconBolt aria-hidden="true" className="size-5" />
@@ -775,18 +776,19 @@ function EnergyHunterGame() {
                   ปิดหรือปรับทันที
                 </span>
               </span>
-            </button>
+            </Button>
 
-            <button
+            <Button
               aria-pressed={selectedDecision === 'continue'}
               className={cn(
-                'flex min-h-24 items-center gap-4 border border-[#111111] bg-[#effff3] p-4 text-left transition duration-200 hover:-translate-y-0.5 hover:bg-[#d9fbe2] focus-visible:ring-2 focus-visible:ring-[#5df591] focus-visible:ring-offset-2 focus-visible:outline-none',
+                'flex min-h-24 items-center gap-4 rounded-none border border-[#111111] bg-[#effff3] p-4 text-left whitespace-normal transition duration-200 hover:-translate-y-0.5 hover:bg-[#d9fbe2] focus-visible:ring-2 focus-visible:ring-[#5df591] focus-visible:ring-offset-2 focus-visible:outline-none [&_svg]:size-auto',
                 selectedDecision && 'cursor-default opacity-45',
                 selectedDecision === 'continue' && 'opacity-100'
               )}
               disabled={selectedDecision !== null}
               onClick={() => answer('continue')}
               type="button"
+              variant="ghost"
             >
               <span className="rounded-base grid size-10 shrink-0 place-items-center bg-[#5df591]">
                 <IconCheck aria-hidden="true" className="size-5" />
@@ -797,7 +799,7 @@ function EnergyHunterGame() {
                   เป็นการใช้งานที่เหมาะสม
                 </span>
               </span>
-            </button>
+            </Button>
           </div>
 
           {selectedDecision ? (
@@ -873,7 +875,7 @@ function GameCatalogNav({
             <IconBook aria-hidden="true" className="size-5" />
           </span>
           <div>
-            <h2 className="text-xl font-bold">MEA GO Games</h2>
+            <h2 className="text-xl font-bold">PSD GO Games</h2>
             <p className="text-sm leading-5 text-[#5a615b]">
               เกมฝึกตาม 4 หมวดมาตรฐานองค์กรสีเขียว
             </p>
@@ -881,7 +883,7 @@ function GameCatalogNav({
         </div>
 
         <nav
-          aria-label="เลือกเกม MEA GO"
+          aria-label="เลือกเกม PSD GO"
           className="mt-5 grid grid-cols-2 gap-2 lg:grid-cols-1"
         >
           {MEA_GO_GAMES.map((game) => {
@@ -889,41 +891,29 @@ function GameCatalogNav({
             const active = activeGameId === game.id
 
             return (
-              <button
+              <Button
                 aria-pressed={active}
-                className={cn(
-                  'group min-h-32 border border-[#e4e8df] bg-[#f7f8f3] p-3 text-left transition hover:border-[#111111] focus-visible:ring-2 focus-visible:ring-[#5df591] focus-visible:ring-offset-2 focus-visible:outline-none lg:min-h-0 lg:p-4',
-                  active && 'border-[#111111] bg-[#111111] text-white'
-                )}
+                className="group h-auto min-h-32 w-full justify-start p-3 text-left whitespace-normal lg:min-h-20 lg:p-4 [&_svg]:size-auto"
                 key={game.id}
                 onClick={() => onSelectGame(game.id)}
                 type="button"
+                variant={active ? 'default' : 'neutral'}
               >
-                <span className="flex flex-col items-start gap-3 lg:flex-row">
+                <span className="flex w-full flex-col items-start gap-3 lg:flex-row lg:items-center">
                   <span
-                    className={cn(
-                      'rounded-base grid size-11 shrink-0 place-items-center text-[#111111]',
-                      active ? 'bg-[#5df591]' : 'bg-white'
-                    )}
-                    style={{
-                      backgroundColor: active ? '#5df591' : game.accent,
-                    }}
+                    className="rounded-base grid size-11 shrink-0 place-items-center text-[#111111] [&>svg]:size-6"
+                    style={{ backgroundColor: game.accent }}
                   >
-                    <Icon aria-hidden="true" className="size-6" />
+                    <Icon aria-hidden="true" data-icon="inline-start" />
                   </span>
                   <span className="min-w-0">
                     <span className="block font-bold">{game.title}</span>
-                    <span
-                      className={cn(
-                        'mt-1 hidden text-sm leading-5 sm:block',
-                        active ? 'text-white/72' : 'text-[#5a615b]'
-                      )}
-                    >
+                    <span className="mt-1 hidden text-sm leading-5 text-current opacity-70 sm:block">
                       {game.genre}
                     </span>
                   </span>
                 </span>
-              </button>
+              </Button>
             )
           })}
         </nav>
@@ -1138,9 +1128,9 @@ function GreenOfficeManagerGame() {
               const answered = selectedOptionIndex !== null
 
               return (
-                <button
+                <Button
                   className={cn(
-                    'flex min-h-20 items-center justify-between gap-4 border border-[#d7ddd4] bg-white p-4 text-left transition duration-200 focus-visible:ring-2 focus-visible:ring-[#5df591] focus-visible:ring-offset-2 focus-visible:outline-none',
+                    'flex min-h-20 items-center justify-between gap-4 rounded-none border border-[#d7ddd4] bg-white p-4 text-left whitespace-normal transition duration-200 focus-visible:ring-2 focus-visible:ring-[#5df591] focus-visible:ring-offset-2 focus-visible:outline-none [&_svg]:size-auto',
                     !answered &&
                       'hover:-translate-y-0.5 hover:border-[#111111] hover:bg-[#effff3]',
                     selected &&
@@ -1155,6 +1145,7 @@ function GreenOfficeManagerGame() {
                   key={option.label}
                   onClick={() => chooseOption(optionIndex)}
                   type="button"
+                  variant="ghost"
                 >
                   <span className="font-bold">{option.label}</span>
                   <span className="rounded-base grid size-9 shrink-0 place-items-center border border-[#111111] bg-[#f7f8f3]">
@@ -1174,7 +1165,7 @@ function GreenOfficeManagerGame() {
                       <span className="text-sm font-bold">?</span>
                     )}
                   </span>
-                </button>
+                </Button>
               )
             })}
           </div>
@@ -1322,9 +1313,9 @@ function GreenShoppingChallengeGame() {
               const unaffordable = spent + item.price > SHOPPING_BUDGET
 
               return (
-                <button
+                <Button
                   className={cn(
-                    'group flex min-h-64 flex-col border border-[#111111] bg-white p-5 text-left transition duration-200 focus-visible:ring-2 focus-visible:ring-[#8ce3ff] focus-visible:ring-offset-2 focus-visible:outline-none',
+                    'group flex min-h-64 flex-col items-stretch rounded-none border border-[#111111] bg-white p-5 text-left whitespace-normal transition duration-200 focus-visible:ring-2 focus-visible:ring-[#8ce3ff] focus-visible:ring-offset-2 focus-visible:outline-none [&_svg]:size-auto',
                     running &&
                       !unaffordable &&
                       'hover:-translate-y-1 hover:bg-[#f1fbff]',
@@ -1335,6 +1326,7 @@ function GreenShoppingChallengeGame() {
                   key={item.id}
                   onClick={() => chooseItem(item)}
                   type="button"
+                  variant="ghost"
                 >
                   <span className="flex w-full items-start justify-between gap-3">
                     <span className="rounded-base bg-[#e9f9ff] px-2 py-1 text-xs font-bold text-[#12617e]">
@@ -1354,7 +1346,7 @@ function GreenShoppingChallengeGame() {
                   <span className="mt-auto pt-5 font-bold text-[#167093]">
                     {unaffordable ? 'งบไม่พอ' : 'เลือกเข้าตะกร้า'}
                   </span>
-                </button>
+                </Button>
               )
             })}
           </div>
@@ -1405,7 +1397,7 @@ function LearningHubHero() {
           </span>
           <div>
             <h1 className="text-3xl leading-tight font-bold tracking-[-0.02em] text-balance sm:text-4xl">
-              MEA GO Game Lab
+              PSD GO Game Lab
             </h1>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-white/72 sm:text-base">
               เลือกเกม แล้วทำภารกิจให้สำเร็จด้วยคะแนน เวลา คอมโบ และการตัดสินใจ
@@ -1535,10 +1527,10 @@ function SafetyInspectorGame() {
           const visible = flipped || matched
 
           return (
-            <button
+            <Button
               aria-label={visible ? card.text : `ไพ่ปิดใบที่ ${index + 1}`}
               className={cn(
-                'relative min-h-44 border border-[#111111] p-3 text-center transition duration-200 focus-visible:ring-2 focus-visible:ring-[#ff9f6e] focus-visible:ring-offset-2 focus-visible:outline-none',
+                'relative min-h-44 rounded-none border border-[#111111] p-3 text-center whitespace-normal transition duration-200 focus-visible:ring-2 focus-visible:ring-[#ff9f6e] focus-visible:ring-offset-2 focus-visible:outline-none [&_svg]:size-auto',
                 visible && card.kind === 'hazard' && 'bg-[#fff0ea]',
                 visible && card.kind === 'solution' && 'bg-[#effff3]',
                 !visible &&
@@ -1549,6 +1541,7 @@ function SafetyInspectorGame() {
               key={card.id}
               onClick={() => flipCard(card)}
               type="button"
+              variant="ghost"
             >
               {visible ? (
                 <span className="grid h-full content-between gap-4">
@@ -1586,7 +1579,7 @@ function SafetyInspectorGame() {
                   )}
                 </span>
               )}
-            </button>
+            </Button>
           )
         })}
       </section>

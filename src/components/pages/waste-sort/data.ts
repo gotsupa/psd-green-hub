@@ -165,7 +165,7 @@ export const WASTE_ITEMS: WasteItem[] = [
   },
   {
     bin: 'red',
-    emoji: '🔋',
+    emoji: '🪫',
     learnMoreId: 'hazardous-waste',
     name: 'ถ่านไฟฉาย',
     type: 'อันตราย',
@@ -179,7 +179,7 @@ export const WASTE_ITEMS: WasteItem[] = [
   },
   {
     bin: 'yellow',
-    emoji: '📄',
+    emoji: '📝',
     learnMoreId: 'recycle-clean',
     name: 'กระดาษ A4',
     type: 'รีไซเคิล',
@@ -312,7 +312,7 @@ export const WASTE_ITEMS: WasteItem[] = [
   },
   {
     bin: 'blue',
-    emoji: '▰',
+    emoji: '⬜',
     learnMoreId: 'waste-basics',
     name: 'ยางลบ',
     type: 'ทั่วไป',
@@ -326,7 +326,7 @@ export const WASTE_ITEMS: WasteItem[] = [
   },
   {
     bin: 'yellow',
-    emoji: '〰️',
+    emoji: '➿',
     learnMoreId: 'recycle-clean',
     name: 'ลวดเย็บกระดาษ',
     type: 'รีไซเคิล',
