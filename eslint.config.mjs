@@ -21,6 +21,9 @@ const eslintConfig = [
   {
     ignores: [
       '.next/**',
+      '.agents/**',
+      '.codex/**',
+      'next-env.d.ts',
       '.yarn/**',
       'out/**',
       'build/**',
@@ -157,6 +160,11 @@ const eslintConfig = [
   // JavaScript files configuration
   {
     files: ['**/*.js', '**/*.mjs'],
+    languageOptions: {
+      globals: {
+        console: 'readonly',
+      },
+    },
     plugins: {
       prettier,
     },
