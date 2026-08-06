@@ -167,14 +167,16 @@ function ActiveFilterChips({
           variant="secondary"
         >
           {chip.label}
-          <button
+          <Button
             aria-label={`ลบตัวกรอง ${chip.label}`}
-            className="hover:text-foreground text-muted-foreground ml-0.5 cursor-pointer transition-colors"
+            className="hover:text-foreground text-muted-foreground ml-0.5 size-5 cursor-pointer border-0 p-0 shadow-none transition-colors hover:border-0 hover:bg-transparent"
             onClick={chip.onRemove}
+            size="icon-xs"
             type="button"
+            variant="ghost"
           >
-            <IconX className="h-3 w-3" />
-          </button>
+            <IconX className="h-3 w-3" data-icon="inline-start" />
+          </Button>
         </Badge>
       ))}
     </div>
@@ -284,15 +286,17 @@ function ComboboxSelectionSummary({
             variant="secondary"
           >
             <span className="truncate">{label}</span>
-            <button
+            <Button
               aria-label={`ลบตัวกรอง ${label}`}
-              className="hover:bg-muted-foreground/15 flex size-5 shrink-0 cursor-pointer items-center justify-center rounded-sm"
+              className="hover:bg-muted-foreground/15 size-5 shrink-0 cursor-pointer rounded-sm border-0 p-0 shadow-none hover:border-0"
               onClick={() => onRemove(item.value)}
               onMouseDown={(event) => event.preventDefault()}
+              size="icon-xs"
               type="button"
+              variant="ghost"
             >
-              <IconX className="size-3" />
-            </button>
+              <IconX className="size-3" data-icon="inline-start" />
+            </Button>
           </Badge>
         )
       })}
@@ -370,10 +374,12 @@ function MobileFilterDrawer({
 
   return (
     <Drawer onOpenChange={setOpen} open={open}>
-      <button
-        className="border-input dark:bg-input/30 flex h-9 w-full items-center gap-1.5 rounded-md border bg-transparent px-2.5 text-sm shadow-xs transition-[color,box-shadow]"
+      <Button
+        className="border-input dark:bg-input/30 h-9 w-full justify-start gap-1.5 rounded-md border bg-transparent px-2.5 text-sm shadow-xs transition-[color,box-shadow] hover:bg-transparent hover:text-inherit [&_svg]:size-auto"
         onClick={() => setOpen(true)}
+        size="sm"
         type="button"
+        variant="ghost"
       >
         <span className="flex min-w-0 flex-1 items-center gap-1.5 overflow-hidden">
           {selected.length === 0 && (
@@ -398,8 +404,11 @@ function MobileFilterDrawer({
             </Badge>
           )}
         </span>
-        <IconChevronDown className="text-muted-foreground h-4 w-4 shrink-0" />
-      </button>
+        <IconChevronDown
+          className="text-muted-foreground h-4 w-4 shrink-0"
+          data-icon="inline-end"
+        />
+      </Button>
 
       <DrawerContent>
         <DrawerHeader className="flex flex-row items-center justify-between">
@@ -436,11 +445,12 @@ function MobileFilterDrawer({
               const isSelected = selected.includes(option.value)
 
               return (
-                <button
-                  className="hover:bg-accent flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-2.5 text-sm transition-colors"
+                <Button
+                  className="hover:bg-accent hover:text-foreground h-auto w-full cursor-pointer justify-start gap-3 rounded-md border-0 px-3 py-2.5 text-sm whitespace-normal shadow-none transition-colors hover:border-0 [&_svg]:size-auto"
                   key={option.value}
                   onClick={() => toggle(option.value)}
                   type="button"
+                  variant="ghost"
                 >
                   <div
                     className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-[4px] border transition-colors ${
@@ -454,7 +464,7 @@ function MobileFilterDrawer({
                   <span className="text-left">
                     {formatLabel ? formatLabel(option.value) : option.label}
                   </span>
-                </button>
+                </Button>
               )
             })}
           </div>
@@ -584,14 +594,16 @@ function TableFilterSearch({
           value={field.value}
         />
         {field.value && (
-          <button
+          <Button
             aria-label={field.clearLabel ?? `ล้าง ${field.label}`}
-            className="text-muted-foreground hover:text-foreground focus-visible:ring-ring absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer rounded transition-colors focus-visible:ring-1 focus-visible:outline-none"
+            className="text-muted-foreground hover:text-foreground focus-visible:ring-ring absolute top-1/2 right-1.5 size-6 -translate-y-1/2 cursor-pointer rounded border-0 p-0 shadow-none transition-colors hover:border-0 hover:bg-transparent focus-visible:ring-1 focus-visible:outline-none"
             onClick={() => field.onChange('')}
+            size="icon-xs"
             type="button"
+            variant="ghost"
           >
-            <IconX className="h-3.5 w-3.5" />
-          </button>
+            <IconX className="h-3.5 w-3.5" data-icon="inline-start" />
+          </Button>
         )}
       </div>
     </div>

@@ -260,14 +260,16 @@ function WasteSearchWorkspace({
             <div className="mt-5 flex flex-wrap items-center gap-2 text-sm text-[#4d5053] sm:text-base">
               <span>ลองค้นหา:</span>
               {EXAMPLES.map((example) => (
-                <button
+                <Button
                   className="neo-interactive bg-secondary-background px-4 py-1.5 font-semibold transition-colors hover:border-[#5df591] hover:bg-[#effff3] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5df591]"
                   key={example}
                   onClick={() => searchExample(example)}
+                  size="sm"
                   type="button"
+                  variant="neutral"
                 >
                   {example}
-                </button>
+                </Button>
               ))}
             </div>
           </div>

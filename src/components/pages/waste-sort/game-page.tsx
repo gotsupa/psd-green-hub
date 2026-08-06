@@ -24,6 +24,7 @@ import {
 } from '@tabler/icons-react'
 import Link from 'next/link'
 
+import { Button } from '~/components/ui/button'
 import { cn } from '~/lib/utils'
 
 import {
@@ -122,14 +123,14 @@ const PLAY_MODES: {
     timeLimitMs: 45_000,
   },
   {
-    description: 'โหมด 30 วินาทีสำหรับทดสอบความแม่นยำในรอบเดียว',
+    description: 'โหมด 30 วินาที ขยะตกเร็วขึ้นทุกเลเวลสำหรับทดสอบความแม่นยำ',
     id: 'challenge',
     label: 'Challenge',
-    levelBoost: 0.85,
+    levelBoost: 1.1,
     lives: 3,
     minSpawnMs: 520,
     spawnMs: 1050,
-    speed: 9.2,
+    speed: 12,
     timeLimitMs: 30_000,
   },
 ]
@@ -184,13 +185,13 @@ export function WasteSortGamePage() {
       () =>
         dispatch({
           deltaMs: GAME_TICK_MS,
-          pausedId: activeId ?? hoveredId,
+          pausedId: activeId ?? (state.mode === 'challenge' ? null : hoveredId),
           type: 'tick',
         }),
       GAME_TICK_MS
     )
     return () => window.clearInterval(tickTimer)
-  }, [activeId, hoveredId, state.status])
+  }, [activeId, hoveredId, state.mode, state.status])
 
   useEffect(() => {
     if (state.status !== 'playing') return
@@ -222,28 +223,22 @@ export function WasteSortGamePage() {
     timeLeftSeconds > 0
 
   return (
-    <main className={styles.game}>
+    <main className={styles.game} data-mode={state.mode}>
       <div aria-hidden="true" className={styles.sun} />
       <div aria-hidden="true" className={styles.cloud} />
 
       <div className={styles.topActions}>
-        <Link
-          aria-label="กลับหน้าค้นหาขยะ"
-          className={styles.homeLink}
-          href="/"
-        >
-          <IconArrowLeft aria-hidden="true" />
-          <span>ย้อนกลับ</span>
-        </Link>
+        <BackToGamesButton size="sm" />
         {state.status === 'playing' ? (
-          <button
+          <Button
             className={styles.restartButton}
             onClick={handleStart}
+            size="sm"
             type="button"
           >
-            <IconRefresh aria-hidden="true" />
+            <IconRefresh aria-hidden="true" data-icon="inline-start" />
             <span>เริ่มใหม่</span>
-          </button>
+          </Button>
         ) : null}
       </div>
 
@@ -353,8 +348,9 @@ export function WasteSortGamePage() {
       {state.status === 'idle' ? (
         <GameOverlay
           actionLabel="เริ่มเกม"
-          icon={<IconPlayerPlay aria-hidden="true" />}
+          icon={<IconPlayerPlay aria-hidden="true" data-icon="inline-start" />}
           onAction={handleStart}
+          secondaryAction={<BackToGamesButton size="lg" />}
           title="เกมแยกขยะ 4 สี"
         >
           <p className={styles.panelText}>
@@ -382,14 +378,9 @@ export function WasteSortGamePage() {
       {state.status === 'over' ? (
         <GameOverlay
           actionLabel="เล่นอีกครั้ง"
-          icon={<IconRefresh aria-hidden="true" />}
+          icon={<IconRefresh aria-hidden="true" data-icon="inline-start" />}
           onAction={handleStart}
-          secondaryAction={
-            <Link className={styles.secondaryButton} href="/game">
-              <IconArrowLeft aria-hidden="true" />
-              ย้อนกลับ
-            </Link>
-          }
+          secondaryAction={<BackToGamesButton size="lg" />}
           title="จบเกม"
         >
           <div className={styles.finalResult}>
@@ -406,6 +397,21 @@ export function WasteSortGamePage() {
         </GameOverlay>
       ) : null}
     </main>
+  )
+}
+
+function BackToGamesButton({ size }: { size: 'lg' | 'sm' }) {
+  return (
+    <Button
+      aria-label="ย้อนกลับหน้าเกมทั้งหมด"
+      nativeButton={false}
+      render={<Link href="/game" />}
+      size={size}
+      variant="neutral"
+    >
+      <IconArrowLeft aria-hidden="true" data-icon="inline-start" />
+      <span>ย้อนกลับ</span>
+    </Button>
   )
 }
 
@@ -430,7 +436,7 @@ function DraggableWaste({
         top: `${item.y}%`,
       }}
     >
-      <button
+      <Button
         {...attributes}
         {...listeners}
         aria-pressed={selected}
@@ -443,9 +449,10 @@ function DraggableWaste({
         ref={setNodeRef}
         style={{ transform: CSS.Translate.toString(transform) }}
         type="button"
+        variant="ghost"
       >
         <WasteCard item={item} />
-      </button>
+      </Button>
     </div>
   )
 }
@@ -462,7 +469,7 @@ function DroppableBin({
   const { isOver, setNodeRef } = useDroppable({ id: color })
   const detail = BIN_DETAILS[color]
   return (
-    <button
+    <Button
       aria-label={`ทิ้งลงถัง${detail.colorName} ${detail.description}`}
       className={styles.binButton}
       data-active={highlighted}
@@ -470,6 +477,7 @@ function DroppableBin({
       onClick={onClick}
       ref={setNodeRef}
       type="button"
+      variant="ghost"
     >
       <span className={cn(styles.binBody, styles[color])}>
         <span className={styles.binLid} />
@@ -481,7 +489,7 @@ function DroppableBin({
         ถัง{detail.colorName}
         <span className={styles.binDescription}>{detail.description}</span>
       </span>
-    </button>
+    </Button>
   )
 }
 
@@ -507,14 +515,10 @@ function GameOverlay({
         {children}
         <div className={styles.overlayActions}>
           {secondaryAction}
-          <button
-            className={styles.startButton}
-            onClick={onAction}
-            type="button"
-          >
+          <Button onClick={onAction} size="lg" type="button">
             {icon}
             {actionLabel}
-          </button>
+          </Button>
         </div>
       </section>
     </div>
@@ -711,17 +715,18 @@ function PlayModePicker({
   return (
     <section aria-label="เลือกโหมดการเล่น" className={styles.modePicker}>
       {PLAY_MODES.map((item) => (
-        <button
+        <Button
           className={styles.modeButton}
           data-active={mode === item.id}
           disabled={disabled}
           key={item.id}
           onClick={() => onChange(item.id)}
           type="button"
+          variant={mode === item.id ? 'default' : 'neutral'}
         >
           <strong>{item.label}</strong>
           <span>{item.description}</span>
-        </button>
+        </Button>
       ))}
     </section>
   )
@@ -741,8 +746,8 @@ function readInitialPlayMode(): PlayMode {
 function WasteCard({ item }: { item: WasteItem }) {
   return (
     <>
-      <span aria-hidden="true" className={styles.wasteEmoji}>
-        {item.emoji}
+      <span aria-hidden="true" className={styles.wasteVisual}>
+        <span className={styles.wasteEmoji}>{item.emoji}</span>
       </span>
       <span className={styles.wasteName}>{item.name}</span>
     </>

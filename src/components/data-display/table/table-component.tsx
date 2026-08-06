@@ -25,6 +25,7 @@ import {
 } from '@tanstack/react-table'
 import { useTranslations } from 'next-intl'
 
+import { Button } from '~/components/ui/button'
 import { Skeleton } from '~/components/ui/skeleton'
 import {
   TableBody,
@@ -187,7 +188,7 @@ export function TableComp<TData>({
     isSorted: boolean
   ) {
     return cn(
-      'group -mx-1 flex h-8 w-[calc(100%+0.5rem)] cursor-pointer items-center gap-1.5 rounded-md px-2 text-inherit outline-none transition-colors',
+      'group -mx-1 flex h-8 w-[calc(100%+0.5rem)] cursor-pointer items-center gap-1.5 rounded-md border-0 px-2 text-inherit shadow-none outline-none transition-colors hover:border-0',
       ALIGN[align],
       headerVariant === 'primary'
         ? 'hover:bg-primary-foreground/10 focus-visible:ring-2 focus-visible:ring-primary-foreground/35 active:bg-primary-foreground/15'
@@ -344,19 +345,21 @@ export function TableComp<TData>({
                         style={{ width: header.getSize() }}
                       >
                         {canSort ? (
-                          <button
+                          <Button
                             aria-label={header.column.id}
                             className={getSortableHeaderButtonClass(
                               align,
                               isSorted
                             )}
                             onClick={header.column.getToggleSortingHandler()}
+                            type="button"
+                            variant="ghost"
                           >
                             <span className="leading-tight whitespace-nowrap">
                               {headerContent}
                             </span>
                             {renderSortingHeader(header)}
-                          </button>
+                          </Button>
                         ) : (
                           <div
                             className={cn(

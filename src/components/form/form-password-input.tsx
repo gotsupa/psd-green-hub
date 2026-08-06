@@ -8,6 +8,7 @@ import {
 
 import { AlertCircle, Eye, EyeOff } from 'lucide-react'
 
+import { Button } from '~/components/ui/button'
 import {
   Field,
   FieldDescription,
@@ -90,18 +91,21 @@ export function FormPasswordInput<T extends FieldValues>({
                 )}
                 onChange={(e) => handleInputChange(e, field.onChange)}
               />
-              <button
-                className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700 focus:outline-none"
+              <Button
+                aria-label={isShowPassword ? 'ซ่อนรหัสผ่าน' : 'แสดงรหัสผ่าน'}
+                className="absolute top-1/2 right-1 -translate-y-1/2 border-0 text-gray-500 hover:border-0 hover:bg-transparent hover:text-gray-700"
                 onClick={togglePasswordVisibility}
+                size="icon-sm"
                 tabIndex={-1}
                 type="button"
+                variant="ghost"
               >
                 {isShowPassword ? (
-                  <EyeOff className="size-4" />
+                  <EyeOff className="size-4" data-icon="inline-start" />
                 ) : (
-                  <Eye className="size-4" />
+                  <Eye className="size-4" data-icon="inline-start" />
                 )}
-              </button>
+              </Button>
             </div>
           </div>
           <FieldError errors={[fieldState.error]} />
