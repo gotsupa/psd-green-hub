@@ -289,13 +289,13 @@ function StandardsAndTargetsSection() {
       <div className="mb-4 bg-[#111111] p-5 sm:p-8">
         <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
           <div>
-            <p className="rounded-base inline-flex -rotate-1 items-center gap-2 border-2 border-[#5df591] bg-[#5df591] px-3 py-2 text-base font-bold text-[#111111] shadow-[4px_4px_0_#ffffff] sm:px-4 sm:py-2.5 sm:text-lg">
-              <span className="grid size-7 place-items-center rounded-full bg-[#111111] text-[#5df591] sm:size-8">
-                <IconLeaf aria-hidden="true" className="size-4 sm:size-5" />
+            <p className="rounded-base inline-flex -rotate-1 items-center gap-3 border-2 border-[#5df591] bg-[#5df591] px-4 py-3 text-3xl leading-none font-bold text-[#111111] shadow-[4px_4px_0_#ffffff] sm:px-5 sm:py-4 sm:text-5xl">
+              <span className="grid size-10 place-items-center rounded-full bg-[#111111] text-[#5df591] sm:size-14">
+                <IconLeaf aria-hidden="true" className="size-6 sm:size-8" />
               </span>
               <span>เป้าหมายปี 2569</span>
             </p>
-            <h2 className="mt-4 max-w-3xl text-3xl leading-tight font-bold text-balance sm:text-5xl">
+            <h2 className="mt-5 max-w-3xl text-2xl leading-tight font-bold text-balance sm:text-4xl">
               ลดการใช้ทรัพยากร
               <span className="block text-[#5df591]">จากปีฐาน 2568</span>
             </h2>
