@@ -242,6 +242,7 @@ export function WasteSortGamePage() {
   useEffect(() => {
     if (
       state.status !== 'over' ||
+      state.mode !== 'challenge' ||
       roundId === 0 ||
       savedRoundIdRef.current === roundId
     ) {
@@ -602,7 +603,7 @@ function EmployeeIdField({
       <p data-error={isInvalid} id="employee-id-help">
         {isInvalid
           ? 'กรุณากรอกรหัสพนักงานเป็นตัวเลขให้ครบ 7 หลัก'
-          : 'ใช้รหัสนี้เพื่อบันทึกคะแนนล่าสุดของคุณเพียงรายการเดียว'}
+          : 'ใช้รหัสนี้เพื่อบันทึกคะแนนที่มากที่สุดของคุณเพียงรายการเดียว'}
       </p>
     </div>
   )
@@ -885,7 +886,7 @@ function ScoreSaveStatus({
     return (
       <div className={styles.saveStatus} role="status">
         <IconLoader2 aria-hidden="true" className={styles.spin} />
-        กำลังบันทึกคะแนนล่าสุด...
+        กำลังตรวจสอบคะแนนสูงสุด...
       </div>
     )
   }
@@ -906,7 +907,7 @@ function ScoreSaveStatus({
     return (
       <div className={styles.saveStatusSuccess} role="status">
         <IconCircleCheck aria-hidden="true" />
-        บันทึกคะแนนล่าสุดของรหัส {employeeId} แล้ว
+        ระบบเก็บคะแนนสูงสุดของรหัส {employeeId} ไว้แล้ว
       </div>
     )
   }

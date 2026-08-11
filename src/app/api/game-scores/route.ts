@@ -6,7 +6,7 @@ const scoreInputSchema = z
   .object({
     correctCount: z.number().int().min(0).max(10_000),
     employeeId: z.string().regex(/^\d{7}$/),
-    mode: z.enum(['challenge', 'learn', 'practice']),
+    mode: z.literal('challenge'),
     score: z.number().int().min(0).max(10_000),
     sortedCount: z.number().int().min(0).max(10_000),
   })
@@ -44,6 +44,7 @@ export async function GET() {
       .select(
         'employee_id, score, correct_count, sorted_count, accuracy, mode, played_at'
       )
+      .eq('mode', 'challenge')
       .order('score', { ascending: false })
       .order('accuracy', { ascending: false })
       .order('played_at', { ascending: true })
