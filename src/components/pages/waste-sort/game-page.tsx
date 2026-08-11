@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useReducer, useState } from 'react'
+import { useEffect, useReducer, useRef, useState } from 'react'
 
 import {
   DndContext,
@@ -17,8 +17,11 @@ import {
 } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
 import {
+  IconAlertCircle,
   IconArrowLeft,
   IconBulb,
+  IconCircleCheck,
+  IconLoader2,
   IconPlayerPlay,
   IconRefresh,
 } from '@tabler/icons-react'
@@ -34,6 +37,8 @@ import {
   WASTE_ITEMS,
   type WasteItem,
 } from './data'
+import { useSaveGameScore } from './game-score'
+import { GameScoreboard } from './game-scoreboard'
 
 import styles from './game.module.css'
 
@@ -136,12 +141,18 @@ const PLAY_MODES: {
 ]
 const WASTE_LANES = [4, 23, 42, 61, 80]
 const GAME_TICK_MS = 50
+const EMPLOYEE_ID_PATTERN = /^\d{7}$/
 
 export function WasteSortGamePage() {
   const [state, dispatch] = useReducer(gameReducer, INITIAL_STATE)
   const [activeId, setActiveId] = useState<null | number>(null)
+  const [employeeId, setEmployeeId] = useState('')
+  const [employeeIdTouched, setEmployeeIdTouched] = useState(false)
   const [hoveredId, setHoveredId] = useState<null | number>(null)
   const [playMode, setPlayMode] = useState<PlayMode>(readInitialPlayMode)
+  const [roundId, setRoundId] = useState(0)
+  const savedRoundIdRef = useRef(0)
+  const saveScoreMutation = useSaveGameScore()
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 3 } }),
     useSensor(KeyboardSensor)
@@ -174,9 +185,31 @@ export function WasteSortGamePage() {
   }
 
   function handleStart() {
+    if (!EMPLOYEE_ID_PATTERN.test(employeeId)) {
+      setEmployeeIdTouched(true)
+      return
+    }
+
     setActiveId(null)
     setHoveredId(null)
+    saveScoreMutation.reset()
+    setRoundId((currentRoundId) => currentRoundId + 1)
     dispatch({ mode: playMode, type: 'start' })
+  }
+
+  function handleEmployeeIdChange(value: string) {
+    setEmployeeId(value.replace(/\D/g, '').slice(0, 7))
+  }
+
+  function handleRetrySave() {
+    savedRoundIdRef.current = roundId
+    saveScoreMutation.mutate({
+      correctCount: state.correctCount,
+      employeeId,
+      mode: state.mode,
+      score: state.correctCount,
+      sortedCount: state.sortedCount,
+    })
   }
 
   useEffect(() => {
@@ -205,6 +238,33 @@ export function WasteSortGamePage() {
     dispatch({ type: 'spawn' })
     return () => window.clearInterval(spawnTimer)
   }, [state.level, state.mode, state.status])
+
+  useEffect(() => {
+    if (
+      state.status !== 'over' ||
+      roundId === 0 ||
+      savedRoundIdRef.current === roundId
+    ) {
+      return
+    }
+
+    savedRoundIdRef.current = roundId
+    saveScoreMutation.mutate({
+      correctCount: state.correctCount,
+      employeeId,
+      mode: state.mode,
+      score: state.correctCount,
+      sortedCount: state.sortedCount,
+    })
+  }, [
+    employeeId,
+    roundId,
+    saveScoreMutation,
+    state.correctCount,
+    state.mode,
+    state.sortedCount,
+    state.status,
+  ])
 
   const activeItem = state.items.find((item) => item.id === activeId)
   const selectedItem = state.items.find((item) => item.id === state.selectedId)
@@ -347,7 +407,9 @@ export function WasteSortGamePage() {
 
       {state.status === 'idle' ? (
         <GameOverlay
+          actionDisabled={!EMPLOYEE_ID_PATTERN.test(employeeId)}
           actionLabel="เริ่มเกม"
+          afterActions={<GameScoreboard employeeId={employeeId} />}
           icon={<IconPlayerPlay aria-hidden="true" data-icon="inline-start" />}
           onAction={handleStart}
           secondaryAction={<BackToGamesButton size="lg" />}
@@ -357,6 +419,12 @@ export function WasteSortGamePage() {
             ลากขยะลงถังให้ถูกสี หรือแตะขยะหนึ่งครั้งแล้วเลือกถัง
             เลือกโหมดให้เหมาะกับจังหวะการเรียนก่อนเริ่ม
           </p>
+          <EmployeeIdField
+            onBlur={() => setEmployeeIdTouched(true)}
+            onChange={handleEmployeeIdChange}
+            showError={employeeIdTouched}
+            value={employeeId}
+          />
           <div className={styles.legend}>
             {(['red', 'green', 'blue', 'yellow'] as const).map((color) => (
               <div className={styles.legendItem} key={color}>
@@ -377,7 +445,9 @@ export function WasteSortGamePage() {
 
       {state.status === 'over' ? (
         <GameOverlay
+          actionDisabled={saveScoreMutation.isPending}
           actionLabel="เล่นอีกครั้ง"
+          afterActions={<GameScoreboard employeeId={employeeId} />}
           icon={<IconRefresh aria-hidden="true" data-icon="inline-start" />}
           onAction={handleStart}
           secondaryAction={<BackToGamesButton size="lg" />}
@@ -389,6 +459,13 @@ export function WasteSortGamePage() {
           <div className={styles.roundResult}>
             ผลรอบนี้: แยกถูก {state.correctCount} จาก {state.sortedCount} ครั้ง
           </div>
+          <ScoreSaveStatus
+            employeeId={employeeId}
+            error={saveScoreMutation.error}
+            isPending={saveScoreMutation.isPending}
+            isSuccess={saveScoreMutation.isSuccess}
+            onRetry={handleRetrySave}
+          />
           <LearningSummary
             correctCount={state.correctCount}
             mistakes={state.mistakes}
@@ -493,15 +570,57 @@ function DroppableBin({
   )
 }
 
+function EmployeeIdField({
+  onBlur,
+  onChange,
+  showError,
+  value,
+}: {
+  onBlur: () => void
+  onChange: (value: string) => void
+  showError: boolean
+  value: string
+}) {
+  const isInvalid = showError && !EMPLOYEE_ID_PATTERN.test(value)
+
+  return (
+    <div className={styles.employeeField}>
+      <label htmlFor="employee-id">รหัสพนักงาน</label>
+      <input
+        aria-describedby="employee-id-help"
+        aria-invalid={isInvalid}
+        autoComplete="off"
+        id="employee-id"
+        inputMode="numeric"
+        maxLength={7}
+        onBlur={onBlur}
+        onChange={(event) => onChange(event.target.value)}
+        pattern="[0-9]{7}"
+        placeholder="กรอกรหัส 7 หลัก"
+        value={value}
+      />
+      <p data-error={isInvalid} id="employee-id-help">
+        {isInvalid
+          ? 'กรุณากรอกรหัสพนักงานเป็นตัวเลขให้ครบ 7 หลัก'
+          : 'ใช้รหัสนี้เพื่อบันทึกคะแนนล่าสุดของคุณเพียงรายการเดียว'}
+      </p>
+    </div>
+  )
+}
+
 function GameOverlay({
+  actionDisabled = false,
   actionLabel,
+  afterActions,
   children,
   icon,
   onAction,
   secondaryAction,
   title,
 }: {
+  actionDisabled?: boolean
   actionLabel: string
+  afterActions?: React.ReactNode
   children: React.ReactNode
   icon: React.ReactNode
   onAction: () => void
@@ -515,11 +634,17 @@ function GameOverlay({
         {children}
         <div className={styles.overlayActions}>
           {secondaryAction}
-          <Button onClick={onAction} size="lg" type="button">
+          <Button
+            disabled={actionDisabled}
+            onClick={onAction}
+            size="lg"
+            type="button"
+          >
             {icon}
             {actionLabel}
           </Button>
         </div>
+        {afterActions}
       </section>
     </div>
   )
@@ -741,6 +866,52 @@ function readInitialPlayMode(): PlayMode {
   }
 
   return 'challenge'
+}
+
+function ScoreSaveStatus({
+  employeeId,
+  error,
+  isPending,
+  isSuccess,
+  onRetry,
+}: {
+  employeeId: string
+  error: Error | null
+  isPending: boolean
+  isSuccess: boolean
+  onRetry: () => void
+}) {
+  if (isPending) {
+    return (
+      <div className={styles.saveStatus} role="status">
+        <IconLoader2 aria-hidden="true" className={styles.spin} />
+        กำลังบันทึกคะแนนล่าสุด...
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className={styles.saveStatusError} role="alert">
+        <IconAlertCircle aria-hidden="true" />
+        <span>{error.message}</span>
+        <Button onClick={onRetry} size="sm" type="button" variant="neutral">
+          ลองบันทึกอีกครั้ง
+        </Button>
+      </div>
+    )
+  }
+
+  if (isSuccess) {
+    return (
+      <div className={styles.saveStatusSuccess} role="status">
+        <IconCircleCheck aria-hidden="true" />
+        บันทึกคะแนนล่าสุดของรหัส {employeeId} แล้ว
+      </div>
+    )
+  }
+
+  return null
 }
 
 function WasteCard({ item }: { item: WasteItem }) {
