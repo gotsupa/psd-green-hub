@@ -51,6 +51,27 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+## Supabase game scores
+
+The waste sorting game stores one latest score per seven-digit employee ID and
+shows a leaderboard containing all players. The server API uses the official
+`@supabase/supabase-js` SDK; no separate ORM or direct PostgreSQL connection is
+required.
+
+1. Create a Supabase project and apply
+   `supabase/migrations/20260811000000_create_waste_sort_scores.sql` in the SQL
+   Editor (or run `supabase db push` with the Supabase CLI).
+2. Copy `.env.example` to `.env.local` and set:
+
+```bash
+SUPABASE_URL=https://your-project-ref.supabase.co
+SUPABASE_SECRET_KEY=sb_secret_your-server-only-key
+```
+
+`SUPABASE_SERVICE_ROLE_KEY` is also supported for projects still using the
+legacy service-role key. Both keys are server-only and must never use a
+`NEXT_PUBLIC_` prefix.
+
 ## Available Scripts
 
 ```bash

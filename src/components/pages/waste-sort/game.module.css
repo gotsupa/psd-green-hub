@@ -548,6 +548,55 @@
   line-height: 1.65;
 }
 
+.employeeField {
+  width: min(360px, 100%);
+  margin: 18px auto 4px;
+  text-align: left;
+  user-select: text;
+}
+
+.employeeField label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.employeeField input {
+  width: 100%;
+  height: 46px;
+  padding: 9px 12px;
+  border: 2px solid #173d2a;
+  border-radius: 8px;
+  outline: none;
+  background: #fff;
+  font: inherit;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.employeeField input:focus-visible {
+  box-shadow: 0 0 0 4px rgba(255, 211, 90, 0.7);
+}
+
+.employeeField input[aria-invalid='true'] {
+  border-color: #b42318;
+}
+
+.employeeField p {
+  min-height: 20px;
+  margin-top: 6px;
+  color: #557164;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.employeeField p[data-error='true'] {
+  color: #b42318;
+  font-weight: 700;
+}
+
 .legend {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -601,6 +650,178 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
+}
+
+.saveStatus,
+.saveStatusError,
+.saveStatusSuccess {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto 18px;
+  padding: 10px 14px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.saveStatus {
+  color: #285843;
+  background: #eef5ec;
+}
+
+.saveStatusSuccess {
+  color: #216c45;
+  background: #e4f8e8;
+}
+
+.saveStatusError {
+  color: #7a271a;
+  border: 1px solid #f2b8b5;
+  background: #fff1f0;
+  flex-wrap: wrap;
+}
+
+.saveStatus svg,
+.saveStatusError > svg,
+.saveStatusSuccess svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+}
+
+.scoreboard {
+  margin-top: 28px;
+  padding-top: 20px;
+  text-align: left;
+  border-top: 1px solid #d8e5d9;
+}
+
+.scoreboardHeading {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.scoreboardHeading > svg {
+  width: 25px;
+  height: 25px;
+  flex: 0 0 auto;
+  color: #9a6a00;
+}
+
+.scoreboardHeading h2 {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.scoreboardHeading p {
+  margin-top: 2px;
+  color: #557164;
+  font-size: 12px;
+}
+
+.scoreboardState,
+.scoreboardError {
+  display: flex;
+  min-height: 76px;
+  padding: 16px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  border-radius: 8px;
+  background: #f2f7f1;
+  color: #4a6558;
+  font-size: 13px;
+}
+
+.scoreboardError {
+  color: #7a271a;
+  border: 1px solid #f2b8b5;
+  background: #fff1f0;
+  flex-wrap: wrap;
+}
+
+.scoreboardError svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+}
+
+.scoreboardError button {
+  padding: 4px 8px;
+  cursor: pointer;
+  border: 1px solid currentcolor;
+  border-radius: 6px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+}
+
+.scoreTableScroll {
+  max-height: 280px;
+  overflow: auto;
+  border: 1px solid #cbdccc;
+  border-radius: 8px;
+}
+
+.scoreTable {
+  width: 100%;
+  min-width: 650px;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.scoreTable th,
+.scoreTable td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid #dce8dd;
+  white-space: nowrap;
+}
+
+.scoreTable thead th {
+  position: sticky;
+  z-index: 1;
+  top: 0;
+  color: #294d3b;
+  background: #edf5eb;
+  font-weight: 700;
+}
+
+.scoreTable tbody tr:last-child > * {
+  border-bottom: 0;
+}
+
+.scoreTable tbody tr[data-current='true'] > * {
+  background: #fff8ce;
+}
+
+.scoreValue {
+  color: #168542;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.youBadge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 6px;
+  color: #173d2a;
+  border-radius: 999px;
+  background: #ffd35a;
+  font-size: 10px;
+}
+
+.spin {
+  animation: spin 800ms linear infinite;
 }
 
 .finalResult {
@@ -731,6 +952,12 @@
   }
 }
 
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @media (max-width: 640px) {
   .topActions {
     align-items: flex-start;
@@ -778,6 +1005,13 @@
   .modePicker {
     grid-template-columns: 1fr;
   }
+  .scoreboard {
+    margin-top: 22px;
+  }
+  .scoreTable th,
+  .scoreTable td {
+    padding: 9px 10px;
+  }
   .sortPrompt {
     top: 118px;
   }
@@ -800,6 +1034,10 @@
   .wasteEmoji,
   .feedback,
   .panel {
+    animation: none;
+  }
+
+  .spin {
     animation: none;
   }
 
