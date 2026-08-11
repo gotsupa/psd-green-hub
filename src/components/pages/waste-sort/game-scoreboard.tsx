@@ -24,7 +24,7 @@ export function GameScoreboard({ employeeId }: { employeeId?: string }) {
         <IconTrophy aria-hidden="true" />
         <div>
           <h2 id="leaderboard-title">ตารางคะแนนผู้เล่นทั้งหมด</h2>
-          <p>แสดงคะแนนจากรอบล่าสุดของแต่ละรหัสพนักงาน</p>
+          <p>แสดงคะแนนที่มากที่สุดของแต่ละรหัสพนักงาน</p>
         </div>
       </div>
 
@@ -61,7 +61,7 @@ export function GameScoreboard({ employeeId }: { employeeId?: string }) {
                 <th scope="col">คะแนน</th>
                 <th scope="col">ความแม่นยำ</th>
                 <th scope="col">โหมด</th>
-                <th scope="col">เล่นล่าสุด</th>
+                <th scope="col">ทำคะแนนเมื่อ</th>
               </tr>
             </thead>
             <tbody>
