@@ -28,6 +28,11 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+.game[data-status='playing'] {
+  overscroll-behavior: none;
+  touch-action: none;
+}
+
 .game::before {
   position: absolute;
   right: -8%;
@@ -451,24 +456,6 @@
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.feedback {
-  position: absolute;
-  z-index: 40;
-  top: 74px;
-  left: 50%;
-  width: max-content;
-  max-width: min(680px, calc(100vw - 32px));
-  padding: 8px 18px;
-  transform: translateX(-50%);
-  text-align: center;
-  border-radius: 999px;
-  background: #fff;
-  box-shadow: 0 6px 18px rgba(22, 65, 41, 0.16);
-  font-weight: 700;
-  line-height: 1.45;
-  animation: feedback 800ms ease both;
 }
 
 .timeWarning {
@@ -931,20 +918,6 @@
     transform: rotate(3deg);
   }
 }
-@keyframes feedback {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, 8px) scale(0.9);
-  }
-  20%,
-  70% {
-    opacity: 1;
-    transform: translate(-50%, 0) scale(1);
-  }
-  100% {
-    opacity: 0;
-  }
-}
 @keyframes panelIn {
   from {
     opacity: 0;
@@ -1023,16 +996,10 @@
   .sortPromptBelowWarning {
     top: 186px;
   }
-  .feedback {
-    top: 102px;
-    border-radius: 8px;
-    font-size: 13px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .wasteEmoji,
-  .feedback,
   .panel {
     animation: none;
   }
