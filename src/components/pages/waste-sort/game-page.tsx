@@ -51,7 +51,6 @@ type GameAction =
   | { type: 'spawn' }
 type GameState = {
   correctCount: number
-  feedback: string
   items: FallingWaste[]
   level: number
   lives: number
@@ -74,7 +73,6 @@ type PlayMode = 'challenge' | 'learn' | 'practice'
 
 const INITIAL_STATE: GameState = {
   correctCount: 0,
-  feedback: '',
   items: [],
   level: 1,
   lives: 3,
@@ -135,7 +133,7 @@ const PLAY_MODES: {
     lives: 3,
     minSpawnMs: 520,
     spawnMs: 1050,
-    speed: 12,
+    speed: 15,
     timeLimitMs: 30_000,
   },
 ]
@@ -284,7 +282,11 @@ export function WasteSortGamePage() {
     timeLeftSeconds > 0
 
   return (
-    <main className={styles.game} data-mode={state.mode}>
+    <main
+      className={styles.game}
+      data-mode={state.mode}
+      data-status={state.status}
+    >
       <div aria-hidden="true" className={styles.sun} />
       <div aria-hidden="true" className={styles.cloud} />
 
@@ -336,16 +338,6 @@ export function WasteSortGamePage() {
           ).join('')}
         </div>
       </div>
-
-      {state.feedback && state.status === 'playing' ? (
-        <div
-          aria-live="polite"
-          className={styles.feedback}
-          key={`${state.feedback}-${state.items.length}`}
-        >
-          {state.feedback}
-        </div>
-      ) : null}
 
       {shouldShowTimeWarning ? (
         <div aria-live="assertive" className={styles.timeWarning} role="status">
@@ -704,11 +696,6 @@ function gameReducer(state: GameState, action: GameAction): GameState {
     const gameOver = (state.mode !== 'learn' && lives === 0) || timeOver
     return {
       ...state,
-      feedback: timeOver
-        ? 'หมดเวลา! ไปดูสรุปผลกัน'
-        : missed.length
-          ? 'พลาด! เสีย 1 ชีวิต'
-          : state.feedback,
       items: gameOver ? [] : movedItems.filter((item) => item.y < 100),
       lives,
       mistakes: [
@@ -738,9 +725,6 @@ function gameReducer(state: GameState, action: GameAction): GameState {
   return {
     ...state,
     correctCount,
-    feedback: correct
-      ? `ถูกต้อง: ${getWasteSortingTip(item)}`
-      : `ยังไม่ใช่ ถัง${BIN_DETAILS[item.bin].colorName}: ${getWasteSortingTip(item)}`,
     items:
       lives === 0
         ? []
