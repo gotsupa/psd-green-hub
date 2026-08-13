@@ -289,7 +289,7 @@ function StandardsAndTargetsSection() {
       <div className="mb-4 bg-[#111111] p-5 sm:p-8">
         <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
           <div>
-            <p className="rounded-base inline-flex -rotate-1 items-center gap-3 border-2 border-[#5df591] bg-[#5df591] px-4 py-3 text-3xl leading-none font-bold text-[#111111] shadow-[4px_4px_0_#ffffff] sm:px-5 sm:py-4 sm:text-5xl">
+            <p className="rounded-base inline-flex items-center gap-3 border-2 border-[#5df591] bg-[#5df591] px-4 py-3 text-3xl leading-none font-bold text-[#111111] shadow-[4px_4px_0_#ffffff] sm:px-5 sm:py-4 sm:text-5xl">
               <span className="grid size-10 place-items-center rounded-full bg-[#111111] text-[#5df591] sm:size-14">
                 <IconLeaf aria-hidden="true" className="size-6 sm:size-8" />
               </span>
