@@ -25,6 +25,7 @@ type WasteSortPageShellProps = {
 const NAVIGATION_ITEMS = [
   { href: '/learning', label: 'เรียนรู้' },
   { href: '/green-labels', label: 'ฉลากสีเขียว' },
+  { href: '/media', label: 'คลังสื่อ' },
   { href: '/search', label: 'ค้นหาถัง' },
   { href: '/waste-route', label: 'เส้นทางขยะ' },
   { href: '/game', label: 'เกมทั้งหมด' },
@@ -53,7 +54,7 @@ export function WasteSortPageShell({ children }: WasteSortPageShellProps) {
             <span>PSD GreenHub</span>
           </Link>
 
-          <nav className="hidden items-center gap-5 text-sm font-semibold text-[#4d5053] md:flex lg:gap-7">
+          <nav className="hidden items-center gap-5 text-sm font-semibold text-[#4d5053] lg:flex lg:gap-6 xl:gap-7">
             {NAVIGATION_ITEMS.map((item) => {
               const isActive = isNavigationActive(item.href)
 
@@ -79,7 +80,7 @@ export function WasteSortPageShell({ children }: WasteSortPageShellProps) {
             })}
           </nav>
 
-          <div className="hidden items-center justify-end gap-2 md:flex">
+          <div className="hidden items-center justify-end gap-2 lg:flex">
             <Button
               className="bg-[#5df591] px-5 font-bold text-[#111111] hover:bg-[#49db7b]"
               nativeButton={false}
@@ -95,7 +96,7 @@ export function WasteSortPageShell({ children }: WasteSortPageShellProps) {
               render={
                 <Button
                   aria-label="เปิดเมนูหลัก"
-                  className="border-[#111111] bg-white font-bold text-[#111111] shadow-none hover:bg-[#f7f8f3] md:hidden"
+                  className="border-[#111111] bg-white font-bold text-[#111111] shadow-none hover:bg-[#f7f8f3] lg:hidden"
                   variant="outline"
                 />
               }
