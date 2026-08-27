@@ -61,11 +61,23 @@ const ENVIRONMENT_TARGETS = [
   },
 ]
 
-const GO_STANDARD_CATEGORIES = [
-  'หมวดที่ 1 การบริหารจัดการองค์กรสีเขียว',
-  'หมวดที่ 2 การจัดการพลังงานและสิ่งแวดล้อม',
-  'หมวดที่ 3 การจัดซื้อจัดจ้างที่เป็นมิตรกับสิ่งแวดล้อม',
-  'หมวดที่ 4 สภาพแวดล้อมและความปลอดภัยในการทำงาน',
+const GO_STANDARD_CATEGORIES: { href: string; title: string }[] = [
+  {
+    href: 'https://drive.google.com/drive/folders/1eYwMK32PMP2oylspTWq9sTM5xNNPHxvN',
+    title: 'หมวดที่ 1 การบริหารจัดการองค์กรสีเขียว',
+  },
+  {
+    href: 'https://drive.google.com/drive/folders/1LYitJt8-vALx27TBoqR3lK0dPADksxYY',
+    title: 'หมวดที่ 2 การจัดการพลังงานและสิ่งแวดล้อม',
+  },
+  {
+    href: 'https://drive.google.com/drive/folders/1hPFwpZOQsr015IEEu4sQ7t313BGrNIEV',
+    title: 'หมวดที่ 3 การจัดซื้อจัดจ้างที่เป็นมิตรกับสิ่งแวดล้อม',
+  },
+  {
+    href: 'https://drive.google.com/drive/folders/1YzQHfBWBbBiCmXFDQMU8p2L67ynu02K-',
+    title: 'หมวดที่ 4 สภาพแวดล้อมและความปลอดภัยในการทำงาน',
+  },
 ]
 
 const RESOURCE_PRACTICE_SECTIONS = [
@@ -126,17 +138,44 @@ function LearningContent() {
             </p>
           </div>
           <div className="grid gap-2 sm:grid-cols-2">
-            {GO_STANDARD_CATEGORIES.map((category, index) => (
-              <div
-                className="neo-surface flex items-start gap-3 bg-[#f7f8f3] p-3"
-                key={category}
-              >
-                <span className="rounded-base flex size-8 shrink-0 items-center justify-center bg-[#5df591] text-sm font-bold text-[#111111]">
-                  {index + 1}
-                </span>
-                <p className="text-sm leading-6 font-semibold">{category}</p>
-              </div>
-            ))}
+            {GO_STANDARD_CATEGORIES.map((category, index) => {
+              const content = (
+                <>
+                  <span className="rounded-base flex size-8 shrink-0 items-center justify-center bg-[#5df591] text-sm font-bold text-[#111111]">
+                    {index + 1}
+                  </span>
+                  <span className="min-w-0 flex-1 text-sm leading-6 font-semibold">
+                    {category.title}
+                  </span>
+                  {category.href ? (
+                    <IconArrowRight
+                      aria-hidden="true"
+                      className="mt-1 size-4 shrink-0 transition-transform group-hover:translate-x-1"
+                    />
+                  ) : null}
+                </>
+              )
+
+              return category.href ? (
+                <Link
+                  aria-label={`เปิด${category.title}`}
+                  className="neo-interactive group flex items-start gap-3 bg-[#f7f8f3] p-3 text-[#111111]"
+                  href={category.href}
+                  key={category.title}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {content}
+                </Link>
+              ) : (
+                <div
+                  className="neo-surface flex items-start gap-3 bg-[#f7f8f3] p-3"
+                  key={category.title}
+                >
+                  {content}
+                </div>
+              )
+            })}
           </div>
         </div>
         <ResourcePracticeSection />
