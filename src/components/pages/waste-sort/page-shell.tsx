@@ -24,6 +24,7 @@ type WasteSortPageShellProps = {
 
 const NAVIGATION_ITEMS = [
   { href: '/learning', label: 'เรียนรู้' },
+  { href: '/green-labels', label: 'ฉลากสีเขียว' },
   { href: '/search', label: 'ค้นหาถัง' },
   { href: '/waste-route', label: 'เส้นทางขยะ' },
   { href: '/game', label: 'เกมทั้งหมด' },
@@ -52,7 +53,7 @@ export function WasteSortPageShell({ children }: WasteSortPageShellProps) {
             <span>PSD GreenHub</span>
           </Link>
 
-          <nav className="hidden items-center gap-7 text-sm font-semibold text-[#4d5053] md:flex">
+          <nav className="hidden items-center gap-5 text-sm font-semibold text-[#4d5053] md:flex lg:gap-7">
             {NAVIGATION_ITEMS.map((item) => {
               const isActive = isNavigationActive(item.href)
 
