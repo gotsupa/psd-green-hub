@@ -1,40 +1,35 @@
 import type { StaticImageData } from 'next/image'
 
-import zeroWaste3R from '~/assets/images/tabs/1A3R.jpg'
-import greenMeeting from '~/assets/images/tabs/5-Green-Meeting-New.jpg'
-import carbonCredit from '~/assets/images/tabs/AW Carbon Credit_1040_1040 px.jpg'
-import carbonCreditVsFootprint from '~/assets/images/tabs/AW Carbon Credit Vs Carbon Footprint_1920_1080 px.jpg'
-import carbonFootprint from '~/assets/images/tabs/AW Carbon Footprint_1040_1040 px.jpg'
-import carbonNeutrality from '~/assets/images/tabs/AW Carbon Neutrality_1040_1040 px.jpg'
-import carbonNeutralityVsNetZero from '~/assets/images/tabs/AW Carbon Neutrality Vs Net Zero Emission_1920_1080 px.jpg'
-import carbonCreditDevelopment from '~/assets/images/tabs/AW Green House Effect - Carbon credit Development_1040_1040 px.jpg'
-import carbonCreditMeaning from '~/assets/images/tabs/AW Green House Effect - Carbon credit Meaning_1920_1080 px.jpg'
-import greenhouseEveryday from '~/assets/images/tabs/AW Green House Effect Everyday_New 1920_1080 px.jpg'
-import greenhouseManagement from '~/assets/images/tabs/AW Green House Effect Manage_1920_1080 px.jpg'
-import zeroEmission from '~/assets/images/tabs/AW Zero Emission_1040_1040 px.jpg'
-import greenOrganization from '~/assets/images/tabs/Green-Organization-SO.jpg'
-import zeroWaste from '~/assets/images/tabs/MEA--Zero-Waste.jpg'
-import energyTarget from '~/assets/images/tabs/MEA-GO-2_-1920-tv_1.jpg'
-import greenProcurement from '~/assets/images/tabs/MEA-Green-Procurement.jpg'
-import safety from '~/assets/images/tabs/MEA-safety.jpg'
-import organizationStandard from '~/assets/images/tabs/poster1.jpg'
-import efficientResources from '~/assets/images/tabs/poster2.jpg'
-import noPlastic from '~/assets/images/tabs/poster3.jpg'
-import environmentalLabels from '~/assets/images/tabs/poster3 (1).jpg'
-import greenProducts from '~/assets/images/tabs/poster4 copy-01_0.jpg'
-import sortBeforeDisposal from '~/assets/images/tabs/poster4 copy2.jpg'
-import wasteSeparation from '~/assets/images/tabs/poster แยกขยะ A3(2).jpg'
-import resourceIssues from '~/assets/images/tabs/S__5775461_0.jpg'
-import greenhouseGases from '~/assets/images/tabs/S__6291572(1).png'
-import greenhouseSources from '~/assets/images/tabs/S__6291574(1).jpg'
-import ecoLabeling from '~/assets/images/tabs/S__6291578(1).jpg'
-import complaintManagement from '~/assets/images/tabs/การจัดการข้อร้องเรียน.jpg'
-import greenDirectory from '~/assets/images/tabs/เปิดบัญชีรายชื่อสินค้าและสถานที่จัดประช.jpg'
-import wasteToEnergyB from '~/assets/images/tabs/โปสเตอร์ waste to energy ขนาด A3(1).jpg'
-import wasteToEnergyA from '~/assets/images/tabs/โปสเตอร์ waste to energy ขนาด A3(1) (1).jpg'
-import greenTeam from '~/assets/images/tabs/รวมพล.jpg'
-import paperless from '~/assets/images/tabs/ลดการใช้กระดาษ a3_0.jpg'
-import reducePlastic from '~/assets/images/tabs/ลดใช้พลาสติก เพื่อพิทักษ์โลกของเรากันเถอะ.jpg'
+import zeroWaste3R from '~/assets/images/tabs-preview/1A3R.jpg'
+import greenMeeting from '~/assets/images/tabs-preview/5-Green-Meeting-New.jpg'
+import carbonCredit from '~/assets/images/tabs-preview/AW Carbon Credit_1040_1040 px.jpg'
+import carbonCreditVsFootprint from '~/assets/images/tabs-preview/AW Carbon Credit Vs Carbon Footprint_1920_1080 px.jpg'
+import carbonFootprint from '~/assets/images/tabs-preview/AW Carbon Footprint_1040_1040 px.jpg'
+import carbonNeutrality from '~/assets/images/tabs-preview/AW Carbon Neutrality_1040_1040 px.jpg'
+import carbonNeutralityVsNetZero from '~/assets/images/tabs-preview/AW Carbon Neutrality Vs Net Zero Emission_1920_1080 px.jpg'
+import carbonCreditDevelopment from '~/assets/images/tabs-preview/AW Green House Effect - Carbon credit Development_1040_1040 px.jpg'
+import carbonCreditMeaning from '~/assets/images/tabs-preview/AW Green House Effect - Carbon credit Meaning_1920_1080 px.jpg'
+import greenhouseEveryday from '~/assets/images/tabs-preview/AW Green House Effect Everyday_New 1920_1080 px.jpg'
+import greenhouseManagement from '~/assets/images/tabs-preview/AW Green House Effect Manage_1920_1080 px.jpg'
+import zeroEmission from '~/assets/images/tabs-preview/AW Zero Emission_1040_1040 px.jpg'
+import greenOrganization from '~/assets/images/tabs-preview/Green-Organization-SO.jpg'
+import zeroWaste from '~/assets/images/tabs-preview/MEA--Zero-Waste.jpg'
+import greenProcurement from '~/assets/images/tabs-preview/MEA-Green-Procurement.jpg'
+import safety from '~/assets/images/tabs-preview/MEA-safety.jpg'
+import organizationStandard from '~/assets/images/tabs-preview/poster1.jpg'
+import efficientResources from '~/assets/images/tabs-preview/poster2.jpg'
+import noPlastic from '~/assets/images/tabs-preview/poster3.jpg'
+import greenProducts from '~/assets/images/tabs-preview/poster4 copy-01_0.jpg'
+import sortBeforeDisposal from '~/assets/images/tabs-preview/poster4 copy2.jpg'
+import wasteSeparation from '~/assets/images/tabs-preview/poster แยกขยะ A3(2).jpg'
+import resourceIssues from '~/assets/images/tabs-preview/S__5775461_0.jpg'
+import greenhouseGases from '~/assets/images/tabs-preview/S__6291572(1).png'
+import greenhouseSources from '~/assets/images/tabs-preview/S__6291574(1).jpg'
+import ecoLabeling from '~/assets/images/tabs-preview/S__6291578(1).jpg'
+import greenDirectory from '~/assets/images/tabs-preview/เปิดบัญชีรายชื่อสินค้าและสถานที่จัดประช.jpg'
+import wasteToEnergyB from '~/assets/images/tabs-preview/โปสเตอร์ waste to energy ขนาด A3(1).jpg'
+import paperless from '~/assets/images/tabs-preview/ลดการใช้กระดาษ a3_0.jpg'
+import reducePlastic from '~/assets/images/tabs-preview/ลดใช้พลาสติก เพื่อพิทักษ์โลกของเรากันเถอะ.jpg'
 
 export type MediaCategory = 'carbon' | 'organization' | 'resources' | 'waste'
 
@@ -111,11 +106,6 @@ export const MEDIA_ITEMS: MediaItem[] = [
   },
   { category: 'waste', image: zeroWaste, title: 'MEA Zero Waste คืออะไร' },
   {
-    category: 'resources',
-    image: energyTarget,
-    title: 'เป้าหมายลดการใช้พลังงาน',
-  },
-  {
     category: 'organization',
     image: greenProcurement,
     title: 'MEA Green Procurement',
@@ -152,11 +142,6 @@ export const MEDIA_ITEMS: MediaItem[] = [
     image: efficientResources,
     title: 'ใช้พลังงานและทรัพยากรอย่างมีประสิทธิภาพ',
   },
-  {
-    category: 'organization',
-    image: environmentalLabels,
-    title: 'สัญลักษณ์ที่เป็นมิตรกับสิ่งแวดล้อม',
-  },
   { category: 'waste', image: noPlastic, title: 'MEA Say No to Plastic' },
   {
     category: 'organization',
@@ -164,16 +149,6 @@ export const MEDIA_ITEMS: MediaItem[] = [
     title: 'สินค้าและบริการที่เป็นมิตรกับสิ่งแวดล้อม',
   },
   { category: 'waste', image: sortBeforeDisposal, title: 'แยกก่อนทิ้ง' },
-  {
-    category: 'organization',
-    image: complaintManagement,
-    title: 'การจัดการข้อร้องเรียนด้านสิ่งแวดล้อม',
-  },
-  {
-    category: 'organization',
-    image: greenTeam,
-    title: 'รวมพลังพนักงานขับเคลื่อนองค์กรสีเขียว',
-  },
   {
     category: 'resources',
     image: paperless,
@@ -188,11 +163,6 @@ export const MEDIA_ITEMS: MediaItem[] = [
     category: 'organization',
     image: greenDirectory,
     title: 'แหล่งข้อมูลสินค้าและสถานที่สีเขียว',
-  },
-  {
-    category: 'waste',
-    image: wasteToEnergyA,
-    title: 'Waste to Energy: แยกก่อนทิ้ง',
   },
   {
     category: 'waste',

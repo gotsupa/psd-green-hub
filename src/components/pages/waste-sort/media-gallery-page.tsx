@@ -112,7 +112,7 @@ export function MediaGalleryPage() {
                     alt={media.title}
                     className="h-auto w-full transition-transform duration-300 group-hover:scale-[1.02] motion-reduce:transition-none"
                     placeholder="blur"
-                    priority={index < 3}
+                    priority={index < 3 || index === 15 || index === 25}
                     quality={72}
                     sizes="(min-width: 1024px) 352px, (min-width: 640px) calc(50vw - 44px), calc(100vw - 40px)"
                     src={media.image}
